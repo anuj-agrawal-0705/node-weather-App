@@ -7,14 +7,18 @@ const forecast = (latitude,longitude, callback) =>{
         
 
         if(error){
-            callback('Unable to connect to weathe forecast,Try Again',undefined)
+            callback('Unable to connect to weathe forecast,Try Again',undefined,undefined)
         } else if(body.error){
-            callback('The coordinates does not match,please check',undefined)
+            callback('The coordinates does not match,please check',undefined,undefined)
         } else {
             temp = body.currently.temperature
             perc = body.currently.precipProbability*100
+            maxTemp = body.daily.data[0].temperatureHigh
+            minTemp = body.daily.data[0].temperatureLow
+            maxTemp = body.daily.data[0].temperatureHigh
+            minTemp = body.daily.data[0].temperatureLow
             news = " It is currently "+temp+" degrees out. There is "+perc+"% chance of rain"
-            callback(undefined, body.daily.data[0].summary + news)
+            callback(undefined, body.daily.data[0].summary + news,'Maximum Temperature = '+maxTemp+'and Minimum Temperature '+ minTemp)
         }
 
         
